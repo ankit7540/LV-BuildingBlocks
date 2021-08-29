@@ -1,8 +1,4 @@
-
-
 #pragma rtGlobals=3		// Use modern global access method and strict wave access.
-
-
 
 //*************************************************************
 //*************************************************************
@@ -61,7 +57,7 @@ End
 //		Argument : name of the wave, Example, "data1"
 
 // useful for extracting 1D channel data from
-//    TDMS files (loaded in Igor) to a 2D wave 
+//    TDMS files (loaded in Igor) to a 2D wave
 
 Function extract_data_from_subfolders (name)
 	string name // name of wave, common in all subfolders
@@ -124,16 +120,20 @@ Function extract_data_from_subfolders (name)
 
 		string folder_path
 		sprintf folder_path, "%s'%s'", root_folder, objName
-		Print index2, folder_path
+		//Print index2, folder_path
 
 		//-------------------------
 		setdatafolder folder_path
 		String cdf = GetDataFolder(1)
 		string wname
-		sprintf wname, "%s'Dev1/ai1'",cdf
-		//print wname
+		sprintf wname, "%s'%s'",cdf,name
+		wave wv =   $wname
+		if (!WaveExists(wv))
+		    print "ok"
+		endif
+		print index2, wname
 
-		wave data=$wname
+		wave data=wv
 		//print nameofwave(data), wavemax(data)
 
 
